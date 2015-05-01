@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 
-namespace Utilities.FindMissingProjectFiles
+namespace Utilities.FindMissingProjectFiles.Impl
 {
     public class ProjectFile : IEquatable<ProjectFile>
     {

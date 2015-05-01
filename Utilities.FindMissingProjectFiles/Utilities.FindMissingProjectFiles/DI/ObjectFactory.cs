@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using StructureMap;
 
-namespace Utilities.FindMissingProjectFiles
+namespace Utilities.FindMissingProjectFiles.DI
 {
     static class ObjectFactory
     {

@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Text;
 using CommandLine;
+using Utilities.FindMissingProjectFiles.Contracts;
+using Utilities.FindMissingProjectFiles.DI;
 
 namespace Utilities.FindMissingProjectFiles
 {
@@ -14,8 +16,6 @@ namespace Utilities.FindMissingProjectFiles
 
             if (parser.ParseArguments(args, options))
             {
-                if (!ValidateProjectFile(options.ProjectFile)) return;
-
                 var projectFileManager = ObjectFactory.Container.GetInstance<IProjectFileManager>();
                 projectFileManager.LoadProjectFile(options.ProjectFile);
 
@@ -42,18 +42,13 @@ namespace Utilities.FindMissingProjectFiles
             }
             else
             {
-                Console.WriteLine("Usage is:" + options.GetUsage());
+                Console.WriteLine(options.GetUsage());
             }
 
             Console.WriteLine();
 
             Console.WriteLine("Press any key to exit");
             Console.ReadLine();
-        }
-
-        private static bool ValidateProjectFile(string projectFile)
-        {
-            return true;
         }
 
         private class Options
@@ -73,7 +68,10 @@ namespace Utilities.FindMissingProjectFiles
                 // this without using CommandLine.Text
                 var usage = new StringBuilder();
                 usage.AppendLine("FindMissingProjectFiles v1.0");
-                usage.AppendLine("");
+                usage.AppendLine("Options:");
+                usage.AppendLine("\t-p:\t(Required) Follow up with the full path to the .Net Project File");
+                usage.AppendLine("\t-d:\t(Optional) Apply this argument if you need the list of Missing files");
+                usage.AppendLine("\t-r:\t(Optional) Apply this argument if you need the Missing files to be removed from the Project File");
                 return usage.ToString();
             }
         }
